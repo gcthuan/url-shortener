@@ -39,4 +39,31 @@ RSpec.describe Shortener, type: :model do
       expect(@result).to eq(@original_url)
     end
   end
+
+  describe "visit" do
+    it "increases visit count by 1 per visit" do
+      REDIS.set("click:aaa", 1)
+      Shortener.visit("google.com/aaa")
+      expect(REDIS.get("click:aaa")).to eq("2")
+    end
+  end
+
+  describe "get_click_count" do
+    it "return the correct click count of a url" do
+      REDIS.set("click:aaa", 10)
+      expect(Shortener.get_click_count("aaa")).to eq("10")
+    end
+  end
+
+  describe "make_url_hash" do
+    it "returns empty string when empty input" do
+      @url = ""
+      expect(Shortener.make_url_hash(@url)).to be_empty
+    end
+
+    it "gets the correct hex string of an url" do
+      @url = "www/sho.rt/abc"
+      expect(Shortener.make_url_hash(@url)).to eq("abc")
+    end
+  end
 end
