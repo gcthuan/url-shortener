@@ -1,7 +1,7 @@
 class Shortener < ActiveRecord::Base
 
 	def self.shorten(url)
-		return "" if url.empty?
+		return "" if url.blank?
 		url_hash = REDIS.incr("counter").to_s(16)
 		REDIS.set("url:#{url_hash}:id", url)
 		REDIS.lpush("global:urls", url)

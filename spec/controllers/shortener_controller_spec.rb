@@ -17,9 +17,29 @@ RSpec.describe ShortenerController, type: :controller do
 			expect(response.body["shortened_url"]).not_to be_empty
 		end
 
-		it "returns a shortened url" do
+		it "returns a string" do
 			response_body = JSON.parse(response.body)
 			expect(response.body["shortened_url"]).to be_a(String)
+		end
+	end
+
+	describe "GET #expand" do
+		before(:each) do
+			get :expand, url: "www.domain-name/aaa", format: :json
+		end
+
+		it "returns 200 status code" do
+			expect(response).to have_http_status(200)
+		end
+
+		it "returns a non empty result" do
+			response_body = JSON.parse(response.body)
+			expect(response.body["original_url"]).not_to be_empty
+		end
+
+		it "returns a string" do
+			response_body = JSON.parse(response.body)
+			expect(response.body["original_url"]).to be_a(String)
 		end
 	end
 end
