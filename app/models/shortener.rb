@@ -14,7 +14,7 @@ class Shortener < ActiveRecord::Base
 			return ""
 		else
 			self.increase_click_count(url_hash)
-			REDIS.get("url:#{url_hash}:id")
+			{REDIS.get("url:#{url_hash}:id") => self.get_click_count(url_hash)}
 		end
 	end
 

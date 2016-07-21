@@ -34,9 +34,9 @@ RSpec.describe Shortener, type: :model do
 
     it "returns correct original url when valid input" do
       @original_url = "google.com"
-      @shorten_url = "host_name/aaa"
-      @result = Shortener.expand(@shorten_url)
-      expect(@result).to eq(@original_url)
+      @shortened_url = "host_name/aaa"
+      @url, @click_count = Shortener.expand(@shortened_url).first
+      expect(@url).to eq(@original_url)
     end
   end
 

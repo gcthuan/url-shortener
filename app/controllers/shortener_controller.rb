@@ -7,7 +7,7 @@ class ShortenerController < ApplicationController
 
 	# GET shorteners/expand?url=
 	def visit
-		@original_url = Shortener.expand(params[:url])
+		@original_url, @click_count = Shortener.expand(params[:url]).first
 	end
 
 	# private

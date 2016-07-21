@@ -36,10 +36,15 @@ RSpec.describe ShortenerController, type: :controller do
 			response_body = JSON.parse(response.body)
 			expect(response.body["original_url"]).not_to be_empty
 		end
+ 
+		it "returns the original url" do
+			@original_url = JSON.parse(response.body)["original_url"]
+			expect(@original_url).to be_a(String)
+		end
 
-		it "returns a string" do
-			response_body = JSON.parse(response.body)
-			expect(response.body["original_url"]).to be_a(String)
+		it "returns click count with the url" do
+			@click_count = JSON.parse(response.body)["click_count"]
+			expect(@click_count.to_i).to be_a(Fixnum)
 		end
 	end
 end
