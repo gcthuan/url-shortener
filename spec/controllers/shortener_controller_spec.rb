@@ -23,9 +23,9 @@ RSpec.describe ShortenerController, type: :controller do
 		end
 	end
 
-	describe "GET #expand" do
+	describe "GET #visit" do
 		before(:each) do
-			get :expand, url: "www.domain-name/aaa", format: :json
+			get :visit, url: "www.domain-name/aaa", format: :json
 		end
 
 		it "returns 200 status code" do

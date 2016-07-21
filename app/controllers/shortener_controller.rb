@@ -6,7 +6,7 @@ class ShortenerController < ApplicationController
 	end
 
 	# GET shorteners/expand?url=
-	def expand
+	def visit
 		@original_url = Shortener.expand(params[:url])
 	end
 

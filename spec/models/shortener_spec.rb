@@ -40,10 +40,10 @@ RSpec.describe Shortener, type: :model do
     end
   end
 
-  describe "visit" do
+  describe "increase click count" do
     it "increases visit count by 1 per visit" do
       REDIS.set("click:aaa", 1)
-      Shortener.visit("google.com/aaa")
+      Shortener.increase_click_count("aaa")
       expect(REDIS.get("click:aaa")).to eq("2")
     end
   end
