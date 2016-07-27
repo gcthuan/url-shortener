@@ -4,10 +4,15 @@ class Shortener < ActiveRecord::Base
 	# Example: www.google.com -> aaa
 	def self.shorten(url)
 		return "" if url.blank?
-		url_hash = REDIS.incr("counter").to_s(16)
-		REDIS.set("url:#{url_hash}:id", url)
-		REDIS.lpush("global:urls", url)
-		url_hash
+		existing_shortened_url = REDIS.get("url:#{url}")
+		if existing_shortened_url.nil?
+			url_hash = REDIS.incr("counter").to_s(16)
+			REDIS.set("url_hash:#{url_hash}", url)
+			REDIS.set("url:#{url}", url_hash)
+			url_hash
+		else
+			existing_shortened_url
+		end
 	end
 
 	# expand the shortened url and return the original url + clicks count
@@ -15,7 +20,7 @@ class Shortener < ActiveRecord::Base
 	def self.expand(url)
 		return "" if url.blank?
 		url_hash = self.make_url_hash(url)
-		original_url = REDIS.get("url:#{url_hash}:id")
+		original_url = REDIS.get("url_hash:#{url_hash}")
 		if original_url.nil?
 			return ""
 		else

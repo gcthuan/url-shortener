@@ -12,16 +12,16 @@ RSpec.describe Shortener, type: :model do
       @input = "google.com"
       REDIS.set("counter", 2729)
     end
+
   	it "returns correct hex string when valid input" do
   		@url = Shortener.shorten(@input)
   		expect(@url).to eq("aaa")
   	end
 
-  	it "increases the total url count by 1" do
-  		@global_urls_count = REDIS.lrange("global:urls", 0, -1).length
-  		@url = Shortener.shorten(@input)
-  		expect(REDIS.lrange("global:urls", 0, -1).length).to eq(@global_urls_count+1)
-  	end
+    it "does not create new shortened url for an existed shortened url" do
+      @url = Shortener.shorten(@input)
+      expect(@url).to eq("aaa")
+    end
 
   end
 
