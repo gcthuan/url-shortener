@@ -14,3 +14,11 @@
  *= require_tree .
  *= require_self
  */
+
+body {
+	padding-top: 65px; /* Required margin for .navbar-fixed-top. Remove if using .navbar-static-top. */
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
