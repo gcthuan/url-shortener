@@ -6,6 +6,7 @@
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
 </head>
+
 <body ng-app="urlShortener" ng-controller="MainCtrl" ng-style="{'background-image': 'url({{backgroundImg}})'}">
 	<div class="navbar-wrapper">
 		<div class="container">
@@ -37,13 +38,25 @@
 		<div class="row">
 			<div class="col-md-3"></div>
 			<div class="col-md-6">
-				<div class="input-group">
-					<input type="text" class="form-control" placeholder="Enter a link to shorten it" ng-model= "url" ng-change="getShortenedUrl(url)">
+				<form class="input-group" name="myForm">
+					<input type="url" name="input" class="form-control" placeholder="Enter a link to shorten it" ng-model= "url" ng-change="getShortenedUrl(url)" required>
 					<span class="input-group-btn">
 						<button class="btn btn-primary" type="button">Shorten</button>
 					</span>
+
+				</form>
+			</div>
+		</div>
+		<div class="row" ng-show="!myForm.input.$error.required">
+			<div class="col-md-3"></div>
+			<div class="col-md-6" ng-style="{'background-color': 'white', 'height': '50px', 'width': '555px', 'margin': '25px 15px'}">
+				<div ng-show="myForm.input.$error.url">INVALID URL</div>
+				<div ng-show="myForm.input.$valid">
+					<a href="" id="sUrl">{{shortened_url}}</a>
+					<button ngclipboard data-clipboard-text="{{shortened_url}}">
+				 	   <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+					</button>
 				</div>
-				<a ng-click="visitUrl(shortened_url)">{{shortened_url}}</a><span>{{click_count}}</span>
 			</div>
 		</div>
 	</div>

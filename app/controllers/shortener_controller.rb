@@ -9,7 +9,7 @@ class ShortenerController < ApplicationController
 	# GET shorteners/expand?url=
 	def visit
 		@original_url = Shortener.expand(params[:url])
-		redirect_to "http://" + @original_url
+		redirect_to @original_url
 	end
 
 	# private
