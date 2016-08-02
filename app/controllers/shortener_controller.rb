@@ -1,13 +1,15 @@
 class ShortenerController < ApplicationController
+	protect_from_forgery with: :null_session
 
-	# GET shorteners/shorten?url=
+	# POST shorteners/shorten?url=
 	def shorten
-		@shortened_url = @host_name + "/" + Shortener.shorten(params[:url])
+		@shortened_url, @click_count  = Shortener.shorten(params[:url]).first
 	end
 
 	# GET shorteners/expand?url=
 	def visit
-		@original_url, @click_count = Shortener.expand(params[:url]).first
+		@original_url = Shortener.expand(params[:url])
+		redirect_to "http://" + @original_url
 	end
 
 	# private

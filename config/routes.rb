@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
 
   root 'application#angular'
-
-  get 'shortener/shorten', to: 'shortener#shorten', defaults: {format: :json}
-  get 'shortener/visit', to: 'shortener#visit', defaults: {format: :json}
+  get '/:url', to: 'shortener#visit', defaults: {format: :json}
+  # get "/*path", to: 'application#angular'
+  post 'shortener/shorten', to: 'shortener#shorten', defaults: {format: :json}
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

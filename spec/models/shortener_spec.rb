@@ -14,12 +14,12 @@ RSpec.describe Shortener, type: :model do
     end
 
   	it "returns correct hex string when valid input" do
-  		@url = Shortener.shorten(@input)
+  		@url = Shortener.shorten(@input).first[0]
   		expect(@url).to eq("aaa")
   	end
 
     it "does not create new shortened url for an existed shortened url" do
-      @url = Shortener.shorten(@input)
+      @url = Shortener.shorten(@input).first[0]
       expect(@url).to eq("aaa")
     end
 
@@ -35,7 +35,7 @@ RSpec.describe Shortener, type: :model do
     it "returns correct original url when valid input" do
       @original_url = "google.com"
       @shortened_url = "host_name/aaa"
-      @url, @click_count = Shortener.expand(@shortened_url).first
+      @url= Shortener.expand(@shortened_url)
       expect(@url).to eq(@original_url)
     end
   end
@@ -62,7 +62,7 @@ RSpec.describe Shortener, type: :model do
     end
 
     it "gets the correct hex string of an url" do
-      @url = "www/sho.rt/abc"
+      @url = "www.sho.rt/abc"
       expect(Shortener.make_url_hash(@url)).to eq("abc")
     end
   end

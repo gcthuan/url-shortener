@@ -3,9 +3,9 @@ require 'rails_helper'
 RSpec.describe ShortenerController, type: :controller do
 	render_views
 
-	describe "GET #shorten" do
+	describe "POST #shorten" do
 		before(:each) do
-			get :shorten, url: "www.google.com", format: :json
+			post :shorten, url: "www.google.com", format: :json
 		end
 
 		it "returns 200 status code" do
@@ -20,6 +20,12 @@ RSpec.describe ShortenerController, type: :controller do
 		it "returns a string" do
 			response_body = JSON.parse(response.body)
 			expect(response.body["shortened_url"]).to be_a(String)
+		end
+
+		it "returns click count with the url" do
+			puts response.body
+			@click_count = JSON.parse(response.body)["click_count"]
+			expect(@click_count).not_to be_blank
 		end
 	end
 
@@ -42,9 +48,5 @@ RSpec.describe ShortenerController, type: :controller do
 			expect(@original_url).to be_a(String)
 		end
 
-		it "returns click count with the url" do
-			@click_count = JSON.parse(response.body)["click_count"]
-			expect(@click_count.to_i).to be_a(Fixnum)
-		end
 	end
 end
