@@ -5,6 +5,7 @@
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
+  <base href="/">
 </head>
 
 <body ng-app="urlShortener" ng-controller="MainCtrl" ng-style="{'background-image': 'url({{backgroundImg}})'}">
@@ -49,13 +50,17 @@
 		</div>
 		<div class="row" ng-show="!myForm.input.$error.required">
 			<div class="col-md-3"></div>
-			<div class="col-md-6" ng-style="{'background-color': 'white', 'height': '50px', 'width': '555px', 'margin': '25px 15px'}">
+			<div class="col-md-6 result-box">
 				<div ng-show="myForm.input.$error.url">INVALID URL</div>
 				<div ng-show="myForm.input.$valid">
-					<a href="" id="sUrl">{{shortened_url}}</a>
-					<button ngclipboard data-clipboard-text="{{shortened_url}}">
-				 	   <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
-					</button>
+					<a ng-href="{{shortened_url}}" target="_blank">{{shortened_url}}</a>
+					<div class="copy-box">
+						<span ng-show="copied">Copied!</span>
+						<button ngclipboard data-clipboard-text="{{shortened_url}}" ng-click="copied = true">
+					 	   <span class="glyphicon glyphicon-copy" aria-hidden="true" title="Copy to clipboard"></span>
+						</button>
+					</div>
+
 				</div>
 			</div>
 		</div>
