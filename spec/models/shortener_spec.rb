@@ -2,24 +2,25 @@ require 'rails_helper'
 
 RSpec.describe Shortener, type: :model do
   describe "shorten" do
+
+    before(:all) do
+      @input = "http://google.com"
+      REDIS.set("counter", 2729)
+    end
+
   	it "returns empty result when empty input" do
   		@input = ""
   		@url = Shortener.shorten(@input)
   		expect(@url).to be_empty
   	end
 
-    before(:each) do
-      @input = "google.com"
-      REDIS.set("counter", 2729)
-    end
-
   	it "returns correct hex string when valid input" do
-  		@url = Shortener.shorten(@input).first[0]
+  		@url = Shortener.shorten(@input)[0]
   		expect(@url).to eq("aaa")
   	end
 
     it "does not create new shortened url for an existed shortened url" do
-      @url = Shortener.shorten(@input).first[0]
+      @url = Shortener.shorten(@input)[0]
       expect(@url).to eq("aaa")
     end
 
@@ -33,9 +34,9 @@ RSpec.describe Shortener, type: :model do
     end
 
     it "returns correct original url when valid input" do
-      @original_url = "google.com"
+      @original_url = "http://google.com"
       @shortened_url = "host_name/aaa"
-      @url= Shortener.expand(@shortened_url)
+      @url = Shortener.expand(@shortened_url)
       expect(@url).to eq(@original_url)
     end
   end

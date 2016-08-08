@@ -5,7 +5,7 @@ RSpec.describe ShortenerController, type: :controller do
 
 	describe "POST #shorten" do
 		before(:each) do
-			post :shorten, url: "www.google.com", format: :json
+			post :shorten, url: "http://google.com", format: :json
 		end
 
 		it "returns 200 status code" do
@@ -31,7 +31,7 @@ RSpec.describe ShortenerController, type: :controller do
 
 	describe "GET #visit" do
 		before(:each) do
-			get :visit, url: "www.domain-name/aaa", format: :json
+			get :visit, url: "localhost:3000/aaa", format: :json
 		end
 
 		it "returns 200 status code" do

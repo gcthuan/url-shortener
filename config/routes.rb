@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   root 'application#angular'
-  get '/:url', to: 'shortener#visit', defaults: {format: :json}
+  get '/:url', to: 'shortener#visit'
   # get "/*path", to: 'application#angular'
   post 'shortener/shorten', to: 'shortener#shorten', defaults: {format: :json}
   

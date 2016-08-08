@@ -53,12 +53,16 @@
 			<div class="col-md-6 result-box">
 				<div ng-show="myForm.input.$error.url">INVALID URL</div>
 				<div ng-show="myForm.input.$valid">
+					<div class="title">{{title}}</div>
 					<a ng-href="{{shortened_url}}" target="_blank">{{shortened_url}}</a>
 					<div class="copy-box">
 						<span ng-show="copied">Copied!</span>
 						<button ngclipboard data-clipboard-text="{{shortened_url}}" ng-click="copied = true">
 					 	   <span class="glyphicon glyphicon-copy" aria-hidden="true" title="Copy to clipboard"></span>
 						</button>
+					</div>
+					<div class="view-box">
+						Views: {{click_count}}
 					</div>
 
 				</div>

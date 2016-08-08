@@ -3,13 +3,16 @@ class ShortenerController < ApplicationController
 
 	# POST shorteners/shorten?url=
 	def shorten
-		@shortened_url, @click_count  = Shortener.shorten(params[:url]).first
+		@shortened_url, @title, @click_count  = Shortener.shorten(params[:url])
 	end
 
 	# GET shorteners/expand?url=
 	def visit
 		@original_url = Shortener.expand(params[:url])
-		redirect_to @original_url
+		respond_to do |format|
+			format.html { redirect_to @original_url }
+			format.json
+		end
 	end
 
 	# private
