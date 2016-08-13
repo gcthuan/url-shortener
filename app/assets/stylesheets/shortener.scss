@@ -3,12 +3,34 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .result-box {
-	height: 60px;
+	height: 100px;
 	width: 555px;
 	margin: 25px 15px;
+	border-radius: 5px;
 	background-color: #ffffff;
 }
 
-.copy-box {
-	float: right;
+.result-box .title {
+	font-weight: bold;
+}
+
+.result-box .original-url {
+	color: #9b9b9b;
+	font-size: 13px;
+}
+
+.result-box .shortened-url {
+	margin-top: 20px;
+}
+
+.result-box .shortened-url .copy-button {
+	margin-left: 5px;
+}
+
+.result-box .shortened-url .copy-text {
+	font-style: italic;
+}
+
+.invalid-url-text {
+	color: red;
 }

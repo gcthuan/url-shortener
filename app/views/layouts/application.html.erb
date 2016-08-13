@@ -39,33 +39,31 @@
 		<div class="row">
 			<div class="col-md-3"></div>
 			<div class="col-md-6">
-				<form class="input-group" name="myForm">
+				<form class="input-group" ng-class="{ 'has-error' : myForm.input.$error.url }" name="myForm">
 					<input type="url" name="input" class="form-control" placeholder="Enter a link to shorten it" ng-model= "url" ng-change="getShortenedUrl(url)" required>
 					<span class="input-group-btn">
 						<button class="btn btn-primary" type="button" ng-click="getShortenedUrl(url)">Shorten</button>
 					</span>
 
 				</form>
+				<p class="invalid-url-text" ng-show="myForm.input.$error.url">Your url is invalid.</p>
 			</div>
 		</div>
-		<div class="row" ng-show="!myForm.input.$error.required">
+		<div class="row">
 			<div class="col-md-3"></div>
 			<div class="loader" ng-show="loading"></div>
-			<div class="col-md-6 result-box" ng-show="!loading">
-				<div ng-show="myForm.input.$error.url">INVALID URL</div>
-				<div ng-show="myForm.input.$valid">
-					<div class="title">{{title}}</div>
+			<div class="col-md-6 result-box" ng-show="myForm.input.$valid && !loading">
+				<div class="title">{{title}}</div>
+				<div class="original-url">{{url}}</div>
+				<div class="shortened-url">
 					<a ng-href="{{shortened_url}}" target="_blank">{{shortened_url}}</a>
-					<div class="copy-box">
-						<span ng-show="copied">Copied!</span>
-						<button ngclipboard data-clipboard-text="{{shortened_url}}" ng-click="copied = true">
-					 	   <span class="glyphicon glyphicon-copy" aria-hidden="true" title="Copy to clipboard"></span>
-						</button>
-					</div>
-					<div class="view-box">
-						Views: {{click_count}}
-					</div>
-
+					<button class="copy-button" ngclipboard data-clipboard-text="{{shortened_url}}" ng-click="copied = true">
+				 	   <span class="glyphicon glyphicon-copy" aria-hidden="true" title="Copy to clipboard"></span>
+					</button>
+					<span class="copy-text" ng-show="copied">Copied!</span>
+				</div>
+				<div class="view-box">
+					Views: {{click_count}}
 				</div>
 			</div>
 		</div>
