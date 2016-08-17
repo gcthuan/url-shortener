@@ -8,12 +8,15 @@ urlShortener.controller("MainCtrl", ["$scope", "$http", "$location", "$window", 
 	$scope.backgroundImg = getABackgroundImg();
 	$scope.getShortenedUrl = function(url) {
 		$scope.loading = true;
+		$scope.requestError = false;
 		$scope.copied = false;
-		return $http.post('/shortener/shorten', {'url': url}).then(function(response) {
-			$scope.shortened_url = $location.protocol() + "://" + $location.host() + ":" + $location.port() + "/" + response.data.shortened_url;
+		return $http.post('/shortener/shorten', {'url': url}).then(function (response) {
+			$scope.shortenedUrl = $location.protocol() + "://" + $location.host() + ":" + $location.port() + "/" + response.data.shortened_url;
 			$scope.title = response.data.title;
-			$scope.click_count = response.data.click_count;
+			$scope.clickCount = response.data.click_count;
 			return;
+		}, function (response) {
+			$scope.requestError = true;
 		}).finally(function() {
 			$scope.loading = false;
 		});
