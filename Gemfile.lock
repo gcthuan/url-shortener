@@ -178,7 +178,7 @@ DEPENDENCIES
   httparty
   jbuilder (~> 2.0)
   oga
-  pg (~> 0.15)
+  pg (~> 0.18)
   puma
   rails (= 4.2.5)
   redis (~> 3.2)
