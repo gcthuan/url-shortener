@@ -21,9 +21,6 @@ urlShortener.controller("MainCtrl", ["$scope", "$http", "$location", "$window", 
 			$scope.loading = false;
 		});
 	};
-	// $scope.visitUrl = function(url) {
-	// 	$window.location.href = url;
-	// };
 }]);
 
 function getABackgroundImg() {
