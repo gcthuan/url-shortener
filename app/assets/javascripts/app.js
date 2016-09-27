@@ -1,6 +1,4 @@
-var urlShortener = angular.module('urlShortener', ['ngclipboard'], function($compileProvider) {
-	$compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|localhost):/);
-});
+var urlShortener = angular.module('urlShortener', ['ngclipboard']);
 urlShortener.config(['$locationProvider', function($locationProvider) {
 	$locationProvider.html5Mode(true);
 }]);
@@ -11,7 +9,13 @@ urlShortener.controller("MainCtrl", ["$scope", "$http", "$location", "$window", 
 		$scope.requestError = false;
 		$scope.copied = false;
 		return $http.post('/shortener/shorten', {'url': url}).then(function (response) {
-			$scope.shortenedUrl = $location.protocol() + "://" + $location.host() + ":" + $location.port() + "/" + response.data.shortened_url;
+			if ($location.host() == "localhost") {
+				$scope.shortenedUrl = $location.protocol() + "://" + $location.host() + ":" + $location.port() + "/" + response.data.shortened_url;
+			}
+			else {
+				$scope.shortenedUrl = $location.host() + "/" + response.data.shortened_url;
+				$scope.hrefUrl = $location.protocol() + "://" + $scope.shortenedUrl;
+			}
 			$scope.title = response.data.title;
 			$scope.clickCount = response.data.click_count;
 			return;
@@ -21,6 +25,9 @@ urlShortener.controller("MainCtrl", ["$scope", "$http", "$location", "$window", 
 			$scope.loading = false;
 		});
 	};
+	// $scope.visitUrl = function(url) {
+	// 	$window.location.href = url;
+	// };
 }]);
 
 function getABackgroundImg() {

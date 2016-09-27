@@ -61,8 +61,8 @@
 				<div class="title">{{title}}</div>
 				<div class="original-url">{{url}}</div>
 				<div class="shortened-url">
-					<a ng-href="{{shortenedUrl}}" target="_blank">{{shortenedUrl}}</a>
-					<button class="copy-button" ngclipboard data-clipboard-text="{{shortened_url}}" ng-click="copied = true">
+					<a ng-href="{{hrefUrl}}" target="_blank">{{shortenedUrl}}</a>
+					<button class="copy-button" ngclipboard data-clipboard-text="{{shortenedUrl}}" ng-click="copied = true">
 				 	   <span class="glyphicon glyphicon-copy" aria-hidden="true" title="Copy to clipboard"></span>
 					</button>
 					<span class="copy-text" ng-show="copied">Copied!</span>
