@@ -10,7 +10,9 @@ urlShortener.controller("MainCtrl", ["$scope", "$http", "$location", "$window", 
 		$scope.copied = false;
 		return $http.post('/shortener/shorten', {'url': url}).then(function (response) {
 			if ($location.host() == "localhost") {
+				console.log($location.host);
 				$scope.shortenedUrl = $location.protocol() + "://" + $location.host() + ":" + $location.port() + "/" + response.data.shortened_url;
+				$scope.hrefUrl = $location.protocol() + "://" + $scope.shortenedUrl;
 			}
 			else {
 				$scope.shortenedUrl = $location.host() + "/" + response.data.shortened_url;
